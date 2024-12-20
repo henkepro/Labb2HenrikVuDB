@@ -1,0 +1,51 @@
+﻿<Window x:Class="Labb2HenrikVuDB.Presentation.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Labb2HenrikVuDB.Presentation"
+        xmlns:UI="clr-namespace:Labb2HenrikVuDB.Presentation.ViewModels" xmlns:System="clr-namespace:System;assembly=netstandard"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=UI:MainWindowViewModel, IsDesignTimeCreatable=True}"
+        Title="MainWindow" Height="250" Width="450" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0">
+            
+            <ComboBox Style="{StaticResource CommonHorizontalAlignment}"
+                      Margin="{StaticResource CommonMargin}"
+                      Width="{StaticResource CommonWidth}"
+                      ItemsSource="{Binding Stores}"
+                      SelectedItem="{Binding SelectedStore}"
+                      DisplayMemberPath="Namn"/>
+
+            <Button Content="Manage Books"
+                    Style="{StaticResource CommonHorizontalAlignment}"
+                    Margin="{StaticResource CommonMargin}"
+                    Width="{StaticResource CommonWidth}"
+                    Command="{Binding ManageStoreOnCommand}"/>
+            
+        </StackPanel>
+
+        <DataGrid Grid.Column="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="False"
+                  CanUserReorderColumns="False"
+                  SelectionMode="Single"
+                  ItemsSource="{Binding InventoryBalance, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ISBN" Binding="{Binding Isbn, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Antal, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

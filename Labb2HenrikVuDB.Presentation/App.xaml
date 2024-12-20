@@ -1,0 +1,47 @@
+﻿<Application x:Class="Labb2HenrikVuDB.Presentation.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Labb2HenrikVuDB.Presentation" 
+             xmlns:System="clr-namespace:System;assembly=netstandard" 
+             xmlns:converters="clr-namespace:Labb2HenrikVuDB.Presentation.Converters"
+             StartupUri="Windows\MainWindow.xaml">
+    <Application.Resources>
+        <Style x:Key="CommonHorizontalAlignment" TargetType="FrameworkElement">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Thickness x:Key="CommonMargin">10,10,10,0</Thickness>
+        <System:Double x:Key="CommonWidth">150</System:Double>
+
+        <converters:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
+        
+        <Style TargetType="DatePicker">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DatePicker">
+                        <Grid>
+                            <TextBox x:Name="PART_TextBox"
+                                 Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource TemplatedParent}, StringFormat='yyyy-MM-dd', Mode=TwoWay}"
+                                 IsReadOnly="True"
+                                 VerticalAlignment="Center"/>
+                            <Button x:Name="PART_Button"
+                                Content="▼"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,0,0"/>
+                            <Popup x:Name="PART_Popup"
+                               Placement="Bottom"
+                               HorizontalOffset="10"
+                               VerticalOffset="5"
+                               StaysOpen="False"
+                               PlacementTarget="{Binding ElementName=PART_TextBox}">
+                                <Calendar x:Name="PART_Calendar"
+                                      SelectedDate="{Binding Path=SelectedDate, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </Application.Resources>
+</Application>

@@ -1,0 +1,109 @@
+﻿<Window x:Class="Labb2HenrikVuDB.Presentation.Windows.UpdateAuthorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Labb2HenrikVuDB.Presentation.Windows"
+        xmlns:UI="clr-namespace:Labb2HenrikVuDB.Presentation.ViewModels" xmlns:System="clr-namespace:System;assembly=netstandard"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=UI:ConfigurationViewModel, IsDesignTimeCreatable=True}"
+        Title="UpdateAuthorWindow" Height="180" Width="200" ResizeMode="NoResize">
+    <Window.Resources>
+        <System:Double x:Key="AddTitleWidth">88</System:Double>
+        <System:Double x:Key="AddTitleHeight">30</System:Double>
+        <VerticalAlignment x:Key="CenterVertical">Center</VerticalAlignment>
+        <HorizontalAlignment x:Key="CenterHorizontal">Center</HorizontalAlignment>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    Height="{StaticResource AddTitleHeight}"
+                    HorizontalAlignment="{StaticResource CenterHorizontal}">
+            <Label Content="Author:"
+                   Width="{StaticResource AddTitleWidth}"
+                   VerticalAlignment="{StaticResource CenterVertical}"/>
+
+            <ComboBox Width="{StaticResource AddTitleWidth}"
+                      VerticalAlignment="{StaticResource CenterVertical}"
+                      ItemsSource="{Binding Author}"
+                      SelectedItem="{Binding SelectedAuthor}"
+                      DisplayMemberPath="Förnamn"/>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Height="{StaticResource AddTitleHeight}"
+                    HorizontalAlignment="{StaticResource CenterHorizontal}">
+            <Label Content="Firstname:"
+                   Width="{StaticResource AddTitleWidth}"
+                   VerticalAlignment="{StaticResource CenterVertical}"/>
+
+            <TextBox Text="{Binding SelectedAuthor.Förnamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Width="{StaticResource AddTitleWidth}"
+                     VerticalAlignment="{StaticResource CenterVertical}"/>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    Height="{StaticResource AddTitleHeight}"
+                    HorizontalAlignment="{StaticResource CenterHorizontal}">
+            <Label Content="Lastname:"
+                   Width="{StaticResource AddTitleWidth}"
+                   VerticalAlignment="{StaticResource CenterVertical}"/>
+
+            <TextBox Text="{Binding SelectedAuthor.Efternamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Width="{StaticResource AddTitleWidth}"
+                     VerticalAlignment="{StaticResource CenterVertical}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    Height="{StaticResource AddTitleHeight}"
+                    VerticalAlignment="{StaticResource CenterVertical}"
+                    HorizontalAlignment="{StaticResource CenterHorizontal}">
+            <Label Content="Birthdate:"
+                   Width="{StaticResource AddTitleWidth}"
+                   VerticalAlignment="{StaticResource CenterVertical}"/>
+
+            <DatePicker SelectedDate="{Binding SelectedAuthor.Födelsedatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter }}"
+                     Width="{StaticResource AddTitleWidth}"
+                     VerticalAlignment="{StaticResource CenterVertical}"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="4"
+                    Orientation="Horizontal"
+                    Height="{StaticResource AddTitleHeight}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <Button Content="Cancel" 
+                    Width="50"
+                    VerticalAlignment="{StaticResource CenterVertical}"
+                    Margin="0,0,10,0"
+                    Click="Button_Click"/>
+            <Button Content="Update" 
+                    Width="50"
+                    VerticalAlignment="{StaticResource CenterVertical}"
+                    Margin="0,0,10,0"
+                    Click="Button_Click"
+                    Command="{Binding UpdateAuthorOnCommand}"/>
+            <Button Content="Remove" 
+                    Width="50"
+                    VerticalAlignment="{StaticResource CenterVertical}"
+                    Margin="0,0,0,0"
+                    Click="Button_Click"
+                    Command="{Binding RemoveAuthorOnCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>

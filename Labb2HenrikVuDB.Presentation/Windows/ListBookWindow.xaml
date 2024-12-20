@@ -1,0 +1,111 @@
+﻿<Window x:Class="Labb2HenrikVuDB.Presentation.Windows.ListBookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Labb2HenrikVuDB.Presentation.Windows"
+        xmlns:UI="clr-namespace:Labb2HenrikVuDB.Presentation.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=UI:ListBookViewModel, IsDesignTimeCreatable=True}"
+        Title="ListBookWindow" Height="320" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    VerticalAlignment="Center">
+            <ComboBox Style="{StaticResource CommonHorizontalAlignment}"
+                      Margin="{StaticResource CommonMargin}"
+                      Width="{StaticResource CommonWidth}"
+                      ItemsSource="{Binding Stores}"
+                      SelectedItem="{Binding SelectedStore}"
+                      DisplayMemberPath="Namn"/>
+            
+            <Button Content="Add Book"
+                    Style="{StaticResource CommonHorizontalAlignment}"
+                    Margin="{StaticResource CommonMargin}"
+                    Width="{StaticResource CommonWidth}"
+                    Command="{Binding AddAmountOfBooksOnCommand}"/>
+
+            <Button Content="Remove Book"
+                    Style="{StaticResource CommonHorizontalAlignment}"
+                    Margin="{StaticResource CommonMargin}"
+                    Width="{StaticResource CommonWidth}"
+                    Command="{Binding RemoveAmountofBooksOnCommand}"/>
+            <StackPanel Orientation="Horizontal"
+                        Style="{StaticResource CommonHorizontalAlignment}"
+                        Margin="{StaticResource CommonMargin}"
+                        Width="{StaticResource CommonWidth}">
+                <Label Content="Amount of books:" 
+                       Margin="0"/>
+
+                <Label Content="{Binding ElementName=BookSlider, Path=Value}"
+                       Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <Slider x:Name="BookSlider"
+                    Value="{Binding AmountOfBooks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource CommonHorizontalAlignment}"
+                    Margin="{StaticResource CommonMargin}"
+                    Width="{StaticResource CommonWidth}"
+                    Minimum="1"
+                    Maximum="10"
+                    TickFrequency="1"
+                    IsSnapToTickEnabled="True"
+                    TickPlacement="BottomRight"
+                    IsSelectionRangeEnabled="True"/>
+
+            <Button Content="Add Title"
+                    Style="{StaticResource CommonHorizontalAlignment}"
+                    Margin="{StaticResource CommonMargin}"
+                    Width="{StaticResource CommonWidth}"
+                    Command="{Binding OpenAddTitleOnCommand}"/>
+
+            <Button Content="Add Author"
+                    Style="{StaticResource CommonHorizontalAlignment}"
+                    Margin="{StaticResource CommonMargin}"
+                    Width="{StaticResource CommonWidth}"
+                    Command="{Binding OpenAddAuthorOnCommand}"/>
+
+            <Button Content="Remove/Update Title"
+                    Style="{StaticResource CommonHorizontalAlignment}"
+                    Margin="{StaticResource CommonMargin}"
+                    Width="{StaticResource CommonWidth}"
+                    Command="{Binding OpenUpdateTitleOnCommand}"/>
+
+            <Button Content="Remove/Update Author"
+                    Style="{StaticResource CommonHorizontalAlignment}"
+                    Margin="10"
+                    Width="{StaticResource CommonWidth}"
+                    Command="{Binding OpenUpdateAuthorWindow}"/>
+
+
+        </StackPanel>
+
+        <DataGrid Grid.Column="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserResizeRows="False"
+                  CanUserResizeColumns="True"
+                  CanUserReorderColumns="False"
+                  SelectionMode="Single"
+                  ColumnWidth="100"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  ItemsSource="{Binding Books}"
+                  SelectedItem="{Binding SelectedBook}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ISBN" Binding="{Binding Isbn13}"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding Author}"/>
+                <DataGridTextColumn Header="Language" Binding="{Binding Language}"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="Release date" Binding="{Binding Release_date}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
